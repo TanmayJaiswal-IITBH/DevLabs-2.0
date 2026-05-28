@@ -19,7 +19,6 @@ submissions/your-name/
 
 ## Checklist
 
-- [ ] Agent uses the Anthropic SDK (or Ollama locally)
 - [ ] Agent has 3 domain-specific tools
 - [ ] Tools have docstrings
 - [ ] Tested with at least 3 different queries
