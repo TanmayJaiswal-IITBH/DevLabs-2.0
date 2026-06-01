@@ -85,7 +85,7 @@ Campus Assistant: OpenLake is IIT Bhilai's open-source community...
 ## Project Structure
 
 ```
-campus_agent/
+Priyanshu_Priyadarshi/
 ├── agent.py       # All tools + ReAct agent (single file)
 └── README.md
 ```
