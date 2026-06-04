@@ -1,277 +1,371 @@
-"""
-Week 2 — Sample Implementation
-Domain: Research Agent
-
-Demonstrates:
-- Typed tool inputs with Pydantic
-- Real API calls (no hardcoded data)
-- Tool class pattern with auto-generated Claude definitions
-- Graceful error handling in tools
-
-Run:
-    pip install anthropic pydantic requests
-    export ANTHROPIC_API_KEY=your_key_here
-    python research_agent.py
-"""
-
+import os
 import requests
-import anthropic
-from pydantic import BaseModel, field_validator
+from urllib.parse import quote
 from typing import Callable, Any
 
+from pydantic import (
+    BaseModel,
+    ValidationError,
+    field_validator,
+)
 
-# ─────────────────────────────────────────────
-# TOOL INPUT SCHEMAS (Pydantic)
-#
-# Why Pydantic?
-# Claude sends tool inputs as raw dicts.
-# Pydantic validates types at runtime and
-# raises a clear error if something's wrong.
-# ─────────────────────────────────────────────
+from langchain_groq import ChatGroq
+from langchain_core.messages import (
+    HumanMessage,
+    ToolMessage,
+)
+
+# --------------------------------------------------
+# CONFIG
+# --------------------------------------------------
+
+MAX_STEPS = 10
+
+if not os.getenv("GROQ_API_KEY"):
+    raise RuntimeError(
+        "GROQ_API_KEY environment variable is not set."
+    )
+
+# --------------------------------------------------
+# INPUT SCHEMAS
+# --------------------------------------------------
 
 class WeatherInput(BaseModel):
     city: str
 
     @field_validator("city")
     @classmethod
-    def city_must_not_be_empty(cls, v: str) -> str:
-        if not v.strip():
-            raise ValueError("city cannot be empty")
-        return v.strip()
+    def validate_city(cls, v: str):
+        v = v.strip()
+        if not v:
+            raise ValueError("City cannot be empty")
+        return v
 
 
 class SearchInput(BaseModel):
     query: str
-    max_results: int = 3
+    max_results: int = 5
 
     @field_validator("max_results")
     @classmethod
-    def clamp_results(cls, v: int) -> int:
-        return max(1, min(v, 10))   # keep between 1 and 10
+    def validate_results(cls, v: int):
+        return max(1, min(v, 10))
 
 
 class CurrencyInput(BaseModel):
-    from_currency: str   # e.g. "USD"
-    to_currency: str     # e.g. "INR"
+    from_currency: str
+    to_currency: str
     amount: float = 1.0
 
-    @field_validator("from_currency", "to_currency")
+    @field_validator(
+        "from_currency",
+        "to_currency",
+    )
     @classmethod
-    def uppercase(cls, v: str) -> str:
-        return v.upper().strip()
+    def normalize_currency(cls, v: str):
+        return v.strip().upper()
 
 
-# ─────────────────────────────────────────────
-# REAL API FUNCTIONS
-#
-# Each function:
-# - Makes a real HTTP call
-# - Has a timeout (never skip this)
-# - Returns a string (what Claude reads back)
-# - Never crashes — catches exceptions and
-#   returns an error string instead
-# ─────────────────────────────────────────────
+# --------------------------------------------------
+# TOOLS
+# --------------------------------------------------
 
 def get_weather(city: str) -> str:
-    """Fetch real weather from wttr.in (free, no API key)."""
     try:
+        city = quote(city)
+
         response = requests.get(
             f"https://wttr.in/{city}?format=3",
             timeout=5,
         )
+
         response.raise_for_status()
+
         return response.text.strip()
+
     except requests.RequestException as e:
-        return f"Could not fetch weather for {city}: {e}"
+        return f"Weather lookup failed: {str(e)}"
 
 
-def search_web(query: str, max_results: int = 3) -> str:
-    """Search using DuckDuckGo Instant Answer API (free, no API key)."""
+def search_web(
+    query: str,
+    max_results: int = 5
+) -> str:
     try:
         response = requests.get(
             "https://api.duckduckgo.com/",
-            params={"q": query, "format": "json", "no_html": 1},
+            params={
+                "q": query,
+                "format": "json",
+                "no_html": 1,
+            },
             timeout=5,
         )
+
         response.raise_for_status()
+
         data = response.json()
 
-        results = data.get("RelatedTopics", [])[:max_results]
-        texts = [r["Text"] for r in results if "Text" in r]
+        results = []
 
-        if not texts:
-            abstract = data.get("AbstractText", "")
-            return abstract if abstract else "No results found."
+        for item in data.get("RelatedTopics", []):
+            if isinstance(item, dict) and "Text" in item:
+                results.append(item["Text"])
 
-        return "\n".join(f"• {t}" for t in texts)
+        results = results[:max_results]
+
+        if results:
+            return "\n".join(
+                f"• {r}" for r in results
+            )
+
+        abstract = data.get("AbstractText")
+
+        if abstract:
+            return abstract
+
+        return "No results found."
+
     except requests.RequestException as e:
-        return f"Search failed: {e}"
+        return f"Search failed: {str(e)}"
 
 
-def convert_currency(from_currency: str, to_currency: str, amount: float = 1.0) -> str:
-    """Convert currency using exchangerate-api (free tier, no key needed)."""
+def convert_currency(
+    from_currency: str,
+    to_currency: str,
+    amount: float = 1.0,
+) -> str:
+
     try:
         response = requests.get(
             f"https://open.er-api.com/v6/latest/{from_currency}",
             timeout=5,
         )
+
         response.raise_for_status()
+
         data = response.json()
 
         if data.get("result") != "success":
-            return f"Currency API error: {data.get('error-type', 'unknown')}"
+            return "Currency API returned an error."
 
         rate = data["rates"].get(to_currency)
+
         if rate is None:
-            return f"Currency '{to_currency}' not found."
+            return f"Unsupported currency: {to_currency}"
 
         converted = round(amount * rate, 2)
-        return f"{amount} {from_currency} = {converted} {to_currency} (rate: {rate})"
+
+        return (
+            f"{amount} {from_currency} = "
+            f"{converted} {to_currency}"
+        )
+
     except requests.RequestException as e:
-        return f"Currency conversion failed: {e}"
+        return f"Currency conversion failed: {str(e)}"
 
 
-# ─────────────────────────────────────────────
-# TOOL CLASS
-#
-# Wraps a function + its Pydantic schema.
-# run() validates inputs before calling the function.
-# to_claude_definition() generates the JSON schema
-# Claude needs — automatically from the Pydantic model.
-# ─────────────────────────────────────────────
+# --------------------------------------------------
+# TOOL WRAPPER
+# --------------------------------------------------
 
 class Tool:
+
     def __init__(
         self,
         name: str,
         description: str,
         input_model: type[BaseModel],
         func: Callable[..., str],
-    ) -> None:
+    ):
         self.name = name
         self.description = description
         self.input_model = input_model
         self.func = func
 
-    def run(self, raw_input: dict[str, Any]) -> str:
-        """Validate inputs with Pydantic, then call the function."""
-        try:
-            validated = self.input_model(**raw_input)
-            return self.func(**validated.model_dump())
-        except Exception as e:
-            return f"Tool '{self.name}' failed: {e}"
+    def run(
+        self,
+        raw_input: dict[str, Any]
+    ) -> str:
 
-    def to_claude_definition(self) -> dict[str, Any]:
-        """Auto-generate Claude tool definition from Pydantic model."""
+        try:
+            validated = self.input_model(
+                **raw_input
+            )
+
+            return self.func(
+                **validated.model_dump()
+            )
+
+        except ValidationError as e:
+            return (
+                "Validation Error:\n"
+                f"{str(e)}"
+            )
+
+        except Exception as e:
+            return (
+                f"Tool Execution Error: {e}"
+            )
+
+    def to_groq_tool(self):
+
         return {
-            "name": self.name,
-            "description": self.description,
-            "input_schema": self.input_model.model_json_schema(),
+            "type": "function",
+            "function": {
+                "name": self.name,
+                "description": self.description,
+                "parameters":
+                    self.input_model.model_json_schema(),
+            },
         }
 
 
-# ─────────────────────────────────────────────
+# --------------------------------------------------
 # TOOL REGISTRY
-# ─────────────────────────────────────────────
+# --------------------------------------------------
 
-TOOLS: list[Tool] = [
+TOOLS = [
     Tool(
-        name="get_weather",
-        description=(
-            "Get the current weather for a city. "
-            "Always use this tool when the user asks about weather — do not guess."
-        ),
-        input_model=WeatherInput,
-        func=get_weather,
+        "get_weather",
+        "Get current weather for a city.",
+        WeatherInput,
+        get_weather,
     ),
     Tool(
-        name="search_web",
-        description=(
-            "Search the web for recent information on a topic. "
-            "Use this for current events, news, or anything that requires up-to-date information."
+        "search_web",
+        (
+            "Search the web for information. "
+            "Use for recent events and facts."
         ),
-        input_model=SearchInput,
-        func=search_web,
+        SearchInput,
+        search_web,
     ),
     Tool(
-        name="convert_currency",
-        description=(
-            "Convert an amount from one currency to another using live exchange rates. "
-            "Use this for any currency conversion question."
+        "convert_currency",
+        (
+            "Convert currency using live exchange rates. "
+            "For multiple target currencies, call "
+            "the tool once per currency."
         ),
-        input_model=CurrencyInput,
-        func=convert_currency,
+        CurrencyInput,
+        convert_currency,
     ),
 ]
 
-TOOL_MAP: dict[str, Tool] = {t.name: t for t in TOOLS}
+TOOL_MAP = {
+    tool.name: tool
+    for tool in TOOLS
+}
 
+# --------------------------------------------------
+# MODEL
+# --------------------------------------------------
 
-# ─────────────────────────────────────────────
+llm = ChatGroq(
+    model="llama-3.3-70b-versatile",
+    temperature=0,
+)
+
+llm_with_tools = llm.bind_tools(
+    [tool.to_groq_tool() for tool in TOOLS]
+)
+
+# --------------------------------------------------
 # AGENT
-# ─────────────────────────────────────────────
+# --------------------------------------------------
 
 class ResearchAgent:
-    def __init__(self) -> None:
-        self.client = anthropic.Anthropic()
-        self.tool_definitions = [t.to_claude_definition() for t in TOOLS]
 
-    def run(self, user_message: str) -> str:
-        messages: list[dict[str, Any]] = [
-            {"role": "user", "content": user_message}
+    def run(
+        self,
+        user_message: str
+    ) -> str:
+
+        messages = [
+            HumanMessage(
+                content=user_message
+            )
         ]
 
-        print(f"\nUser: {user_message}")
+        for step in range(MAX_STEPS):
 
-        while True:
-            response = self.client.messages.create(
-                model="claude-opus-4-7",
-                max_tokens=1024,
-                system=(
-                    "You are a helpful research assistant. "
-                    "Use tools to find real information. "
-                    "Never guess — if you need data, call the relevant tool."
-                ),
-                tools=self.tool_definitions,
-                messages=messages,
+            response = llm_with_tools.invoke(
+                messages
             )
 
-            messages.append({"role": "assistant", "content": response.content})
+            messages.append(response)
 
-            if response.stop_reason == "end_turn":
-                for block in response.content:
-                    if block.type == "text":
-                        return block.text
+            if not response.tool_calls:
+                return str(response.content)
 
-            tool_results = []
-            for block in response.content:
-                if block.type == "tool_use":
-                    print(f"  → {block.name}({block.input})")
-                    result = TOOL_MAP[block.name].run(block.input)
-                    print(f"  ← {result}")
-                    tool_results.append({
-                        "type": "tool_result",
-                        "tool_use_id": block.id,
-                        "content": result,
-                    })
+            for tool_call in response.tool_calls:
 
-            messages.append({"role": "user", "content": tool_results})
+                tool_name = tool_call["name"]
+                tool_args = tool_call["args"]
+
+                print(
+                    f"\n[Tool] "
+                    f"{tool_name}"
+                )
+                print(
+                    f"[Args] "
+                    f"{tool_args}"
+                )
+
+                tool = TOOL_MAP.get(tool_name)
+
+                if not tool:
+                    result = (
+                        f"Unknown tool: "
+                        f"{tool_name}"
+                    )
+                else:
+                    result = tool.run(
+                        tool_args
+                    )
+
+                print(
+                    f"[Result] "
+                    f"{result}"
+                )
+
+                messages.append(
+                    ToolMessage(
+                        content=result,
+                        tool_call_id=tool_call["id"],
+                    )
+                )
+
+        return (
+            "Stopped after reaching "
+            f"{MAX_STEPS} tool iterations."
+        )
 
 
-# ─────────────────────────────────────────────
-# DEMO
-# ─────────────────────────────────────────────
+# --------------------------------------------------
+# MAIN
+# --------------------------------------------------
 
 if __name__ == "__main__":
+
     agent = ResearchAgent()
 
-    queries = [
-        "What's the weather like in Mumbai and Delhi right now?",
-        "Convert 5000 INR to USD and EUR.",
-        "Search for recent news about open source LLMs and summarise what you find.",
-    ]
+    while True:
 
-    for query in queries:
+        query = input(
+            "\nYou: "
+        ).strip()
+
+        if query.lower() in {
+            "exit",
+            "quit",
+        }:
+            break
+
         answer = agent.run(query)
-        print(f"\nAgent: {answer}")
-        print("─" * 60)
+
+        print(
+            f"\nAgent: "
+            f"{answer}"
+        )
