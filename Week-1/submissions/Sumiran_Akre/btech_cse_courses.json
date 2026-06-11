@@ -1,0 +1,442 @@
+{
+  "institute": "Indian Institute of Technology Bhilai",
+  "document": "Courses of Study – February 2026",
+  "applicable_for": "2023 Batch onwards",
+  "program": "BTech",
+  "department": "Computer Science and Engineering",
+
+  "credit_requirements": {
+    "institute_core_IC": 40.5,
+    "program_linked_PL": 4,
+    "program_core_PC": 52,
+    "program_elective_PE": 22.5,
+    "open_elective_OE": 15,
+    "liberal_art_LA": 10,
+    "non_graded_core_NC": "12 units",
+    "total_minimum": "144 credits + 12 non-graded core units"
+  },
+
+  "common_courses": {
+    "description": "Institute Core (IC) courses — mandatory for ALL BTech students across all departments",
+    "courses": [
+      {
+        "code": "BML101",
+        "name": "Biology for Engineers",
+        "L-T-P-C": "3-0-0-3",
+        "credits": 3,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Origin of life and Evolution; Water; Biological molecules: Proteins, DNA, RNA, Genes, Carbohydrates; Lipids; Enzymes and Introduction to metabolism, Nutrients; Introduction to Cells in Biology, Cellular processes, cell organelles and cell structure, Cell cycle, Culture growth; The Central Dogma, Chromatin, DNA structure, replication, transcription and translation; Respiration and photosynthesis; Homeostasis; Basics of human physiology."
+      },
+      {
+        "code": "CYL100",
+        "name": "Applied Chemistry",
+        "L-T-P-C": "3-0-0-3",
+        "credits": 3,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Electrochemical Systems: Electrochemical cells and EMF, Applications of EMF measurements, Nernst Equation, Batteries, Fuel cell, corrosion and its control; Kinetics of Chemical Reactions and catalysis: Reversible, consecutive and parallel reactions, Steady state approximation, and Chain reactions. Physical adsorption, chemisorption, Freundlich's expression, Langmuir adsorption isotherm, and heterogeneous catalysis; Bonding Models in inorganic Chemistry: Molecular orbital theory, Valence-bond theory, LCAO, and Crystal field theory; Coordination Chemistry: Coordination numbers, Chelate effect, Coordination complexes and application, Bio-inorganic chemistry: Metal ions in Biological systems, environmental aspects of Metals, Organometallic chemistry, 18 electron rules, Industrially relevant chemical reactions and mechanism; Engineering materials and Polymer Chemistry: Glass, ceramics, refractory, composites, magnetic materials, Polymer, Properties, Polymer processing, Industrial polymers, conducting polymers; Natural Products and Biomolecules: Amino acids/nucleic acids/proteins/lipids, Enzymes, Vitamins, Biomacromolecules, and Solid phase synthesis; Fuels and Combustion: Properties of fuels, Calorific value, Petroleum and petrochemicals, biofuels."
+      },
+      {
+        "code": "CYP102",
+        "name": "Chemistry Lab",
+        "L-T-P-C": "0-0-3-1.5",
+        "credits": 1.5,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Indicative Experiments: Synthesis of drugs (Paracetamol and Aspirin); Analysis of Organic Compound; Estimation of Phenol; Estimation of Copper in Brass; Determination of Hardness of Water by EDTA titration; Synthesis of potash alum from scrap aluminium (recycling of aluminium waste); Reaction Kinetics (Ester hydrolysis); Red-ox titration; Acid Strength in Citrus Fruit juice by using pH meter and conductivity meter; Estimation of Cu in brass by colourimetric method."
+      },
+      {
+        "code": "PHP102",
+        "name": "Physics Lab",
+        "L-T-P-C": "0-0-3-1.5",
+        "credits": 1.5,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Error Analysis, Newton rings, Bandgap of a semiconductor, Characteristics of a n-p-n transistor, Hall effect, Diffraction, Stefan's law and Zener diode, Cathode Ray Oscilloscope, Gouy's method: Measurement of the magnetic susceptibility."
+      },
+      {
+        "code": "PHL101",
+        "name": "Physics for Engineers",
+        "L-T-P-C": "3-1-0-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Mechanics: generalized coordinates, Lagrangian and Hamiltonian formulation, simple, damped, forced oscillations; Optics: interference, diffraction, polarization, LASER; Electromagnetism: Maxwell equation, dielectrics, metals, theory of radiation; Modern physics: atomic structure, quantum mechanics, photoelectric effect, relativity, nuclear physics; Astrophysics: Kepler's problem, stars, white-dwarfs, neutron stars, black holes, geometry of the universe; Materials property: electrical, thermal, magnetic, mechanical properties."
+      },
+      {
+        "code": "MAL100",
+        "name": "Mathematics-I",
+        "L-T-P-C": "3-1-0-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Real number system: Sequences — convergence, Sandwich theorem, Cauchy sequences, subsequence, monotone sequences; Series: convergence, comparison test, Cauchy condensation test, ratio test, root test, Leibnitz test; Functions of one variable: limits and continuity, intermediate value property, differentiability, local maxima and minima, Rolle's theorem, mean value theorem; Integration: definite integrals as limit of sums, fundamental theorems, applications to area/volume/surface area, improper integrals; Functions of two variables: limits, continuity, partial derivatives, directional derivatives, gradient, differentiability, chain rule, tangent planes, maxima/minima, Lagrange multiplier method; Multiple integrals: double and triple integrals, applications to volume/surface area, change of variables, vector fields, line integrals, Green's theorem, path independence, surface integrals, Gauss's divergence theorem, Stokes Theorem."
+      },
+      {
+        "code": "MAL101",
+        "name": "Mathematics-II",
+        "L-T-P-C": "3-1-0-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Systems of linear equations: elementary operations, row-reduced echelon matrices, Gauss elimination, LU factorization, linear independence, rank, solutions; Vector spaces: subspaces, spanning space, bases and dimensions; Linear transformations: matrix representations, range space, null space, rank-nullity theorem, invertibility; Eigenvalues and eigenvectors: applications, Hermitian, skew-Hermitian, unitary matrices; Diagonalization: annihilating polynomial, minimal polynomial, characteristic polynomial, Cayley-Hamilton theorem, real quadratic form; Inner product spaces: orthonormal bases, Gram-Schmidt process; Differential Equations: review of first order ODE, Lipschitz condition, Picard's theorem; Linear differential equations: Wronskian, ODE with constant coefficients, characteristic equations, Cauchy-Euler equations, method of undetermined coefficients, variation of parameters, Laplace Transform solutions."
+      },
+      {
+        "code": "CSL100",
+        "name": "Introduction to Programming",
+        "L-T-P-C": "2-1-3-4.5",
+        "credits": 4.5,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Basics of programming using C; Basic UNIX commands; Primitives and Datatypes; Arithmetic operations; Input and output functions; Conditional statements; Loops; Introduction to Functions; Macros; Recursion; Arrays; Strings; Dynamic Memory Allocation; Pointers; Complex Data Types; File Handling; Introduction to Linked List; Sorting; Searching; Bitwise Operators."
+      },
+      {
+        "code": "MEP102",
+        "name": "Digital Fabrication",
+        "L-T-P-C": "1-0.5-3-3",
+        "credits": 3,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Theory of projections; Orthographic projection; Isometric projection and perspective projection; Familiarization with 3D solid modelling (CAD) for engineering and freeform geometries; 3D Scanning using CMM and laser scanners; Preparatory activities for 3D Printing: STL format, slicing, effect of part orientation; 3D printing: Introduction to additive manufacturing processes; Conventional machining: turning, centering, drilling, and milling; CNC programming; Familiarization with casting, welding, and molding; Laser-based manufacturing processes; Introduction to digital manufacturing and industry 4.0."
+      },
+      {
+        "code": "CYL101",
+        "name": "Environmental Science",
+        "L-T-P-C": "1-0-0-1",
+        "credits": 1,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Understanding our environment: atmosphere composition and behaviour, temperature and pressure profile; Atmospheric Photochemistry: electromagnetic radiations, kinetics of thermal and photochemical processes, reactions in the upper atmosphere, photochemical smog, photosynthesis, ozone chemistry, ozone depletion, atmospheric pollutants; Air pollution: standards, effects, origin and fate, atmospheric dispersion; Global warming: greenhouse gases, results, green chemical industrial processes, sustainable fuels; Water pollution: chemistry in aqueous media, chemical and physical reactions, major contaminant groups; Soil pollution: groundwater contamination, soil profiles, acid-base and ion exchange reactions, fertilizers and pollutants in soil; Organic and Inorganic chemicals in environment: ecosystem, flow of energy and nutrient cycles, sustainability, toxicity, impact on environment."
+      },
+      {
+        "code": "EEL101",
+        "name": "Basic Electrical Engineering",
+        "L-T-P-C": "3-0-2-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "DC and AC Circuits: Voltage and current sources, Dependent Sources, Kirchhoff's current and voltage laws, Star-Delta, Superposition, Thevenin and Norton Theorems, Telegen, Millman, Compensation, MPT Theorems. Phasor, Complex Impedance and Complex Power. Analysis of single-phase AC circuits in complex domain, Resonance. LTI System. Balanced Three-phase circuits in star and delta connections. 3-phase wattmeter, Energy meter. Transformers: Magnetic materials, BH characteristics, ideal and practical transformer, equivalent circuit, losses, regulation and efficiency. Auto-transformer and three-phase transformer connections. Electrical Machines: Generation of rotating magnetic fields, Construction and working of three-phase induction motor, Torque-slip characteristic, Loss components and efficiency, starting and speed control. Single Phase Induction Motor. DC motor: torque-speed characteristic, speed control. Stepper motors and encoders."
+      },
+      {
+        "code": "ECL101",
+        "name": "Basic Electronics Engineering",
+        "L-T-P-C": "3-0-2-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Semiconductor Diode, V-I characteristics, Half-Wave and Full-Wave Rectifier Circuits. Transistors: BJT, MOSFET — biasing, small signal model, amplifiers. Operational Amplifiers: Ideal Op-Amp, applications. Diode characteristics and applications (rectifiers/clipping). Transistors with at least one application (amplification/switching). Op-Amp: Analog to digital converter implementation. Logic Gates and Combinational Circuits: Number Systems and Binary Codes, Boolean Algebra and Logic Gates, DeMorgan's Theorems, Sum-of-Product and Product-of-Sum Forms, Algebraic Simplification, Karnaugh-Map Method, Combinational Logic Circuits, Binary Half and Full adder-subtractor, Adders, Comparators, Multiplexers, Decoders/encoders, Parity Generator-Checker. Synchronous and Ripple Counters. Communications: Analog and Digital communication introduction, Frequency modulation, Digital communication using Visible Light Communication."
+      },
+      {
+        "code": "LAL100",
+        "name": "Introduction to Communication Skills",
+        "L-T-P-C": "1-1-0-2",
+        "credits": 2,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Barriers to communication: basic concepts, communication models; Components of communication: rhetoric and argumentation models and strategies; Strategies for reading: skimming, scanning, intensive and extensive; Towards careful enunciation: basics of phonetics, techniques, common pitfalls; Making presentations: public speaking vs presentations, presentation styles, structure and content, persuasive speech, non-verbal communication; Handling group discussions: types, basic structure, time management; Writing for technical purposes: fundamentals of technical writing, types of documents, structure and format, common pitfalls; Communication for workplaces: etiquettes of professional communication, situations at workplace, communication ethics."
+      },
+      {
+        "code": "LAL101",
+        "name": "Introduction to Finance",
+        "L-T-P-C": "1-0-0-1",
+        "credits": 1,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Risk and Return; Time Value of Money and Net Present Value; Asset Pricing Models: CAPM and APT; Modern Portfolio Theory and Diversification; Bonds and Interest Rates; Derivatives: Futures and Options."
+      }
+    ],
+    "total_credits": 40.5
+  },
+
+  "non_graded_core_courses": {
+    "description": "Mandatory non-graded courses for ALL BTech students (earn S grade to pass)",
+    "courses": [
+      {
+        "code": "LAN102",
+        "name": "Speaking and Writing Skills",
+        "credits": 2,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Recognising competencies: language phobia, everyday language, dismantling preconceptions; Learning words: commonly used words, word associations, idioms; Developing speaking skills: conversing, extempore; Language through literature: reading short stories, essays, op-eds; Writing skills: sentence formation, paragraphing, composition; Learning through performance: group discussion, skits.",
+        "note": "Can be waived if English communication exam is passed at the start of Semester 1"
+      },
+      {
+        "code": "LAN103",
+        "name": "Professional Ethics",
+        "credits": 1,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Understanding Ethics: definitions and theories; Code of Conduct: honesty, integrity, rights and duties; Work ethics: teamwork, ethical decision-making, conflicts of interest; Research ethics: accountability, confidentiality, consent; Social responsibility: civic responsibilities, environmental accountability, technology and its impact."
+      },
+      {
+        "code": "NCN100",
+        "name": "Practices for Comprehensive Wellbeing",
+        "credits": 1,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Development of a healthy and balanced lifestyle through regular practice of sports, yoga and meditation."
+      },
+      {
+        "code": "NCN101/NCN102",
+        "name": "National Service Scheme / National Sports Organization",
+        "credits": 8,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "NSS (NCN101): Community service activities including healthcare, teaching, social awareness, and environmental initiatives. Students work with local NGOs and develop communication, leadership, and teamwork skills over a minimum of 120 hours. NSO (NCN102): Regular involvement in sports and physical activity leading to a healthy and balanced lifestyle; also nurtures sports talent.",
+        "note": "Minimum 120 hours required; encouraged to complete within first 4 semesters"
+      }
+    ],
+    "total_units": 12
+  },
+
+  "program_linked_courses": {
+    "description": "Program Linked (PL) courses — bridge between IC and PC courses, mandatory for CSE BTech",
+    "courses": [
+      {
+        "code": "MAL403",
+        "name": "Probability & Statistics",
+        "L-T-P-C": "3-1-0-4",
+        "credits": 4,
+        "prerequisites": ["MAL100"],
+        "overlap_with": "NA",
+        "syllabus": "Introduction to set algebra, sigma algebra, Borel sigma algebra, sequence of sets; Axiomatic definition of probability, probability space, conditional probability, Bayes' rule, independence of events, Borel-Cantelli lemmas; Random variables: distribution function, probability mass and density functions, symmetric distribution, expectation, moments, moment generating function, Markov inequality, Chebyshev's inequality; Joint distributions: marginal and conditional distributions, independence of random variables, covariance, correlation, joint moment generating functions, ordered statistics; Special distributions: Discrete uniform, Bernoulli, binomial, geometric, negative binomial, hypergeometric, Poisson, exponential, gamma, normal, bivariate normal; Population and sample: Chi-Square, t and F distributions, law of large numbers, central limit theorem, point estimation, method of moments, maximum likelihood estimator, unbiasedness; Testing of hypothesis: Null and alternate hypothesis, Neyman-Pearson fundamental lemma, tests for one and two sample problems for normal populations, tests for proportions, confidence interval estimation."
+      }
+    ],
+    "total_credits": 4
+  },
+
+  "program_core_courses": {
+    "description": "Program Core (PC) courses — mandatory for all CSE BTech students",
+    "courses": [
+      {
+        "code": "CSP203",
+        "name": "Software Tools & Technologies Lab",
+        "L-T-P-C": "1-0-4-3",
+        "credits": 3,
+        "prerequisites": ["CSL100"],
+        "overlap_with": "NA",
+        "syllabus": "Basics of Linux: Linux commands, text editors; Scripting languages; Web programming; Plotting tools; Document processing tools; Version control systems; Debuggers such as gdb; Containerization with Docker."
+      },
+      {
+        "code": "CSL201",
+        "name": "Discrete Mathematics",
+        "L-T-P-C": "3-1-0-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Sets, relations, functions, Equivalence and Partial order relations; Formal logic: Propositional logic and truth tables, normal forms, Predicates and Quantification; Notion of proof: proof techniques, Mathematical Induction; Combinatorics: Basic counting techniques, The pigeonhole principle, countable and uncountable sets, recurrence relations, The principle of Inclusion-exclusion; Graph theory: Graph terminology, representation of graphs, Isomorphism, trees, Eulerian and Hamiltonian graphs, Graph coloring and Planar graphs; Number theory: Divisibility, GCD, The Euclidean algorithm, The fundamental theorem of arithmetic, Modular arithmetic; Group theory: Groups, subgroups, finite groups, cyclic groups, permutation groups."
+      },
+      {
+        "code": "CSL202",
+        "name": "Data Structures",
+        "L-T-P-C": "2-1-2-4",
+        "credits": 4,
+        "prerequisites": ["CSL100"],
+        "overlap_with": "NA",
+        "syllabus": "Stacks, Queues, Lists; Sorting and Searching; Trees, Tree Traversals; Heaps, Binary Search; Binary Search Trees, Balanced BSTs; Graphs: Representations, Depth First Search, Breadth First Search."
+      },
+      {
+        "code": "CSL252",
+        "name": "Design and Analysis of Algorithms",
+        "L-T-P-C": "3-1-0-4",
+        "credits": 4,
+        "prerequisites": ["CSL100", "CSL201", "CSL202"],
+        "overlap_with": "NA",
+        "syllabus": "Algorithm analysis: worst and average case; Recurrences and asymptotes; Algorithms for sorting and selection; Randomized techniques; Divide and Conquer; Dynamic programming and greedy algorithms; Graph algorithms: breadth-first search, depth-first search and applications, MSTs, shortest paths; NP-Complete problems and Approximation Algorithms."
+      },
+      {
+        "code": "CSL253",
+        "name": "Theory of Computation",
+        "L-T-P-C": "3-1-0-4",
+        "credits": 4,
+        "prerequisites": ["CSL201","CSL202"],
+        "overlap_with": "NA",
+        "syllabus": "Alphabets, languages, finite state machines; Context Free Grammars and Context-Free Languages; Parse trees; PushDown Automata; CYK algorithm; Turing machines, Variants; Undecidability theory; Space and Time complexity; NP-Completeness."
+      },
+      {
+        "code": "CSL301",
+        "name": "Operating Systems",
+        "L-T-P-C": "3-0-2-4",
+        "credits": 4,
+        "prerequisites": ["CSL202","CSL251"],
+        "overlap_with": "NA",
+        "syllabus": "Introduction: Introduction to OS, Virtualization, Concurrency, Persistence; CPU Virtualization: Process, Process API, PCB, Mechanism, CPU Scheduling, Multilevel feedback queue; Memory Virtualization: Address space, Memory API, Mechanism, address translation, segmentation, paging, TLBs, policies, swapping; Concurrency: concurrency and threads, Thread API, locks, condition variables, semaphore, concurrency bugs; Persistence: I/O devices, Hard disk drives, RAID, file and directories, file system implementation; Security: Introduction to OS Security, Authentication, Access Control, Cryptography, Distributed System Security; Tools: xv6."
+      },
+      {
+        "code": "CSL302",
+        "name": "Compiler Design",
+        "L-T-P-C": "3-0-2-4",
+        "credits": 4,
+        "prerequisites": ["CSL251","CSL253"],
+        "overlap_with": "NA",
+        "syllabus": "Compiler structure: analysis-synthesis model of compilation, various phases of a compiler, tool-based approach to compiler construction; Phases of compiler design: Lexical analysis; Syntax analysis; Syntax-directed translation; Type checking; Run time system; Intermediate code generation; Machine-independent optimizations; Code generation."
+      },
+      {
+        "code": "CSL303",
+        "name": "Database Management Systems",
+        "L-T-P-C": "3-0-2-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Database System Concepts: Data models, schemas and instances, database languages, classification; Relational Algebra: SELECT and PROJECT, set operations, JOIN and DIVISION; Entity-relationship (EE) and Enhanced Entity-relationship (EER) models: entity types, entity sets, attributes, keys, relationship types, roles, subclasses, superclasses, inheritance; DBMS design using relational mapping from EE and EER models; Normalization: Functional dependencies, normal forms based on primary keys, second and third normal forms, Boyce-Codd normal form; Database programming techniques: SQL programming techniques, PHP."
+      },
+      {
+        "code": "CSL251",
+        "name": "Computer Organization and Architecture",
+        "L-T-P-C": "3-0-2-4",
+        "credits": 4,
+        "prerequisites": ["CSL100" ,"ECL101"],
+        "overlap_with": "NA",
+        "syllabus": "Introduction: Overview of basic digital building blocks, truth tables, basic structure of a digital computer, number representation; Machine Instructions and Program: Assembly language programming for some processors; Arithmetic Unit: Basic building blocks for the ALU — adder, subtractor, shifter, multiplication and division circuits, microprogramming; Memory organization: Technology (ROM, RAM, EPROM, Flash), cache memories, cache coherence protocol, virtual memory, secondary storage; Input/Output Organization: I/O subblock, I/O techniques, interrupts, polling, DMA; Pipelining: Instruction pipeline, hazards."
+      },
+      {
+        "code": "CSL351",
+        "name": "Computer Networks",
+        "L-T-P-C": "3-0-2-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Introduction: Layer approach, Packet switching techniques, Performance metrics; Applications: Application layer services, HTTP & Web, DNS, SMTP, CDNs, P2P; Transport Layer: TCP, flow control, error control, congestion control, TCP variants, UDP, QUIC; Socket Programming: TCP and UDP socket programming; Network Layer: IP header, Fragmentation, IP addressing, NAT, Routing protocols, ICMP, ARP, RARP, DHCP, IPv6, RIP, OSPF; Data link layer: framing, medium access mechanism, CSMA/CD, CSMA/CA, Ethernet, Wi-Fi; Network security: Public key and private key cryptography, digital signature, firewalls; Advanced topics: SDN and OpenFlow Architectures; Tool-set: NS-3, Wireshark, Mininet, RYU/ONOS Controller."
+      },
+      {
+        "code": "CSL304",
+        "name": "Artificial Intelligence",
+        "L-T-P-C": "3-0-2-4",
+        "credits": 4,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Introduction: Course Introduction, Motivation; Problem solving by search: State Space, Problem Reduction, Graph Search, Game Playing, Constraint Satisfaction; Automated Reasoning: Proposition and first order logic, inference and deduction, resolution refutation, answer extraction, knowledge based systems, logic programming and constrained logic programming, non-monotonic reasoning; Planning: State-space, plan space and partial order planning, planning algorithms; Reasoning under uncertainty: Probabilistic reasoning, belief networks, Fuzzy logic; Reinforcement Learning: MDP, Policy Search, Q-Learning, Applications."
+      },
+      {
+        "code": "CSQ401",
+        "name": "BTech Project-I",
+        "L-T-P-C": "0-0-6-3",
+        "credits": 3,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Research and development-oriented projects based on problems of practical and theoretical interest. Students are generally expected to work towards the goals set by the project supervisor. Evaluation is done based on regular presentations and written reports."
+      },
+      {
+        "code": "CSQ402",
+        "name": "BTech Project-II",
+        "L-T-P-C": "0-0-6-3",
+        "credits": 3,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "Students work towards the goals set in CSQ401. At the end of the project, students are expected to demonstrate a solution and possible future work on the same problem. Students submit a report outlining the details of the problem, including a literature survey and various results obtained along with their solutions."
+      },
+      {
+        "code": "UGQ301",
+        "name": "Interdisciplinary Undergraduate Project",
+        "L-T-P-C": "0-0-6-3",
+        "credits": 3,
+        "prerequisites": [],
+        "overlap_with": "NA",
+        "syllabus": "An interdisciplinary project where students work on problems spanning multiple disciplines, under the guidance of a project supervisor. Evaluation is based on presentations and written reports. Intended to expose students to problems and approaches beyond their parent discipline."
+      }
+    ],
+    "total_credits": 52
+  },
+
+  "semester_plan": [
+    {
+      "semester": 1,
+      "courses": [
+        { "code": "CSL100",      "name": "Introduction to Programming",          "L-T-P-C": "2-1-3-4.5" },
+        { "code": "CYP102/PHP102","name": "Chemistry Lab / Physics Lab (one of)", "L-T-P-C": "0-0-3-1.5" },
+        { "code": "MAL100",      "name": "Mathematics-I",                        "L-T-P-C": "3-1-0-4"   },
+        { "code": "CYL100",      "name": "Applied Chemistry",                    "L-T-P-C": "3-0-0-3"   },
+        { "code": "PHL101",      "name": "Physics for Engineers",                "L-T-P-C": "3-1-0-4"   },
+        { "code": "CYL101",      "name": "Environmental Science",                "L-T-P-C": "1-0-0-1"   },
+        { "code": "NCN100",      "name": "Practices for Comprehensive Wellbeing","L-T-P-C": "NC"        }
+      ],
+      "total_credits": 18
+    },
+    {
+      "semester": 2,
+      "courses": [
+        { "code": "MEP102",       "name": "Digital Fabrication",                  "L-T-P-C": "1-0.5-3-3" },
+        { "code": "EEL101",       "name": "Basic Electrical Engineering",         "L-T-P-C": "3-0-2-4"   },
+        { "code": "PHP102/CYP102","name": "Physics Lab / Chemistry Lab (one of)", "L-T-P-C": "0-0-3-1.5" },
+        { "code": "MAL101",       "name": "Mathematics-II",                       "L-T-P-C": "3-1-0-4"   },
+        { "code": "ECL101",       "name": "Basic Electronics Engineering",        "L-T-P-C": "3-0-2-4"   },
+        { "code": "BML101",       "name": "Biology for Engineers",                "L-T-P-C": "3-0-0-3"   },
+        { "code": "LAN103",       "name": "Professional Ethics",                  "L-T-P-C": "NC"        }
+      ],
+      "total_credits": 19.5
+    },
+    {
+      "semester": 3,
+      "courses": [
+        { "code": "MAL403", "name": "Probability & Statistics",         "L-T-P-C": "3-1-0-4" },
+        { "code": "CSL201", "name": "Discrete Mathematics",             "L-T-P-C": "3-1-0-4" },
+        { "code": "CSL202", "name": "Data Structures",                  "L-T-P-C": "2-1-2-4" },
+        { "code": "CSP203", "name": "Software Tools & Technologies Lab","L-T-P-C": "1-0-4-3" },
+        { "code": "LAL100", "name": "Introduction to Communication Skills","L-T-P-C": "1-1-0-2" },
+        { "code": "LA",     "name": "Liberal Art Course",               "L-T-P-C": "X-X-X-2" }
+      ],
+      "total_credits": 19
+    },
+    {
+      "semester": 4,
+      "courses": [
+        { "code": "CSL251", "name": "Computer Organization and Architecture","L-T-P-C": "3-0-2-4" },
+        { "code": "CSL252", "name": "Design and Analysis of Algorithms",    "L-T-P-C": "3-1-0-4" },
+        { "code": "CSL253", "name": "Theory of Computation",               "L-T-P-C": "3-1-0-4" },
+        { "code": "LAL101", "name": "Introduction to Finance",             "L-T-P-C": "1-0-0-1" },
+        { "code": "LA",     "name": "Liberal Art Course",                  "L-T-P-C": "X-X-X-4" }
+      ],
+      "total_credits": 17
+    },
+    {
+      "semester": 5,
+      "courses": [
+        { "code": "CSL301", "name": "Operating Systems",            "L-T-P-C": "3-0-2-4" },
+        { "code": "CSL302", "name": "Compiler Design",              "L-T-P-C": "3-0-2-4" },
+        { "code": "CSL303", "name": "Database Management Systems",  "L-T-P-C": "3-0-2-4" },
+        { "code": "CSL304", "name": "Artificial Intelligence",      "L-T-P-C": "3-0-2-4" },
+        { "code": "LA",     "name": "Liberal Art Course",           "L-T-P-C": "X-X-X-2" }
+      ],
+      "total_credits": 18
+    },
+    {
+      "semester": 6,
+      "courses": [
+        { "code": "CSL351", "name": "olp",                        "L-T-P-C": "3-0-2-4" },
+        { "code": "CSLXXX", "name": "Program Elective (PE)",                    "L-T-P-C": "X-X-X-6" },
+        { "code": "OE",     "name": "Open Elective",                            "L-T-P-C": "X-X-X-3" },
+        { "code": "UGQ301", "name": "Interdisciplinary Undergraduate Project",  "L-T-P-C": "0-0-6-3" },
+        { "code": "LA",     "name": "Liberal Art Course",                       "L-T-P-C": "X-X-X-2" }
+      ],
+      "total_credits": 18
+    },
+    {
+      "semester": 7,
+      "courses": [
+        { "code": "CSQ401", "name": "BTech Project-I",      "L-T-P-C": "0-0-6-3"   },
+        { "code": "CSLXXX", "name": "Program Elective (PE)","L-T-P-C": "X-X-X-8.5" },
+        { "code": "OE",     "name": "Open Elective",        "L-T-P-C": "X-X-X-6"   }
+      ],
+      "total_credits": 17.5
+    },
+    {
+      "semester": 8,
+      "courses": [
+        { "code": "CSQ402", "name": "BTech Project-II",     "L-T-P-C": "0-0-6-3" },
+        { "code": "CSLXXX", "name": "Program Elective (PE)","L-T-P-C": "X-X-X-8" },
+        { "code": "OE",     "name": "Open Elective",        "L-T-P-C": "X-X-X-6" }
+      ],
+      "total_credits": 17
+    }
+  ],
+
+  "notes": {
+    "L-T-P-C": "L = Lectures/week, T = Tutorials/week, P = Practicals/week, C = Credits",
+    "credit_formula": "C = L + T + P/2",
+    "LA_courses": "Liberal Art (LA) electives chosen from institute bouquet to meet 10-credit requirement",
+    "OE_courses": "Open Electives chosen from courses offered by any discipline",
+    "PE_courses": "Program Electives chosen from CSE discipline's declared elective bouquet",
+    "NC_courses": "Non-graded; student must earn S grade; X grade indicates incomplete performance"
+  }
+}
