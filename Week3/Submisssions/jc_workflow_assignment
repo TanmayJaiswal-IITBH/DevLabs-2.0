@@ -1,0 +1,193 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -1264,
+        -192
+      ],
+      "id": "3cf52e3c-20c6-4ed1-90ba-979cac53d60c",
+      "name": "When chat message received",
+      "webhookId": "67863f31-6d86-4b65-bd8c-9db3dfca71f9"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a research assistant.\n\nThe user asked:\n\n{{ $json.search_parameters.q }}\n\nThe following are web search results:\n{{ $json.organic_results }}\nSummarize the information in simple language by using the gorq chat model.\n\nProvide exactly 5 bullet points.\n\nDo not include unnecessary details.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -640,
+        -192
+      ],
+      "id": "0d3c4177-cd0e-4eee-b37e-f93d067cd62a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -784,
+        16
+      ],
+      "id": "33454954-c7f2-45b6-87e5-1526b913061c",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "AAPGp8k9E4JEWYR3",
+          "name": "Groq account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$node[\"Extract email\"].json.email || \n'kanalajayachandrareddy2005@gmail.com'}}",
+        "subject": "=\"Research Summary:\"+{{$node[\"Extract email\"].json.question}} :",
+        "emailType": "text",
+        "message": "={{ $json.output }}\n\nBest regards,\nJC.",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -256,
+        -192
+      ],
+      "id": "dd14355b-27c2-440d-a422-9f7c815b4daf",
+      "name": "Send a message",
+      "webhookId": "f91db499-85ef-478f-a76f-6f54dcad46a5",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Mx28v2RXLNuR8pjZ",
+          "name": "Gmail account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"question\": {{ $json.chatInput.replace(' at ' +  $json.chatInput.extractEmail() , '').trim() }}\n  \"email\": {{$json.chatInput.extractEmail() }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1056,
+        -192
+      ],
+      "id": "e84680c9-4e12-4d3e-befb-6821b439c556",
+      "name": "Extract email"
+    },
+    {
+      "parameters": {
+        "q": "={{ $json.question }}",
+        "locationSettings": {},
+        "languageSettings": {},
+        "searchOptions": {},
+        "timeFilters": {},
+        "pagination": {},
+        "advancedOptions": {},
+        "requestOptions": {}
+      },
+      "type": "@searchapi/n8n-nodes-searchapi.searchApi",
+      "typeVersion": 1,
+      "position": [
+        -848,
+        -192
+      ],
+      "id": "f9c22213-1f7d-4fb4-88fa-6078c2c5f0d9",
+      "name": "Search google",
+      "credentials": {
+        "searchApi": {
+          "id": "LSk7ChSA3uoLnPkU",
+          "name": "SearchApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Extract email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract email": {
+      "main": [
+        [
+          {
+            "node": "Search google",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search google": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "fe9307ff-375b-4111-ae59-07320ae05a04",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "223da6a335ac24f61223440e91cc54c502010f68e017878f240f33da953fc4dd"
+  },
+  "nodeGroups": [],
+  "id": "q4XVLAuB2IXquxwf",
+  "tags": []
+}
