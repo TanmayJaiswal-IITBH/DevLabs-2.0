@@ -1,0 +1,206 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "75365df7-bdbf-4d85-9d5c-34f87e74db73",
+      "name": "When chat message received",
+      "webhookId": "0cf7516b-4e2d-45a8-b7b7-9818eec0d74f"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://html.duckduckgo.com/html/",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "59634fc5-0b8b-488e-813c-35e23d6c0a4c",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "snippet",
+              "cssSelector": "a.result__snippet",
+              "returnArray": true
+            },
+            {
+              "key": "title",
+              "cssSelector": "a.result__url",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "08885959-97cb-4e2a-9f1e-a2aaed3be97f",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.snippet }}{{ $json.title }}",
+        "options": {
+          "systemMessage": "You are a helpful assistant. Answer the user's question based on these web search results.\n\nSearch Results:\nTitles: {{ $json.title }}\nSnippets: {{ $json.snippet }}\n\nProvide a clear, concise summary answering the question.\n\n\nif ready to send, send the email via the tool provided"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "12fe714f-b995-41b0-8eaa-532c21ec1e2e",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        592,
+        224
+      ],
+      "id": "17237662-804a-49c8-89ed-a5f046916f9c",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Nz75eaVRjbhKflX8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "alukachalu869@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "emailType": "text",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Append_n8n_Attribution', ``, 'boolean') }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        816,
+        224
+      ],
+      "id": "952eb1e0-a742-4b43-9363-7112200c9912",
+      "name": "Send a message in Gmail",
+      "webhookId": "4656c074-f731-4e07-aaed-936b0ca6237f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "5k9ixxAPaHFcqZwA",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "b42bbe97-cb1c-46c6-af0a-6dcd7af20454",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "483d77b6f269a156bc64ec71fa2a1a26162cedfab5c175c11adf4a5579b04278"
+  },
+  "nodeGroups": [],
+  "id": "hXvdPdqt7cV4hhiA",
+  "tags": []
+}
