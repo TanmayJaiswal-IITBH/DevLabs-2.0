@@ -188,19 +188,6 @@ Explain Large Language Models
 - Creates a concise summary
 - Emails the summary
 
----
-
-## Screenshots
-
-### Workflow
-
-Add your workflow screenshot here.
-
-### Execution
-
-Add your execution screenshot here.
-
----
 
 ## Future Improvements
 
