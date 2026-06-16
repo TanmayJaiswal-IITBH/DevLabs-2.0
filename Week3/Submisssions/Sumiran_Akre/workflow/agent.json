@@ -1,0 +1,184 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bb9b2bd3-3e2f-46fe-9ea4-5325f292c1cb",
+      "name": "When chat message received",
+      "webhookId": "279c668b-fca6-46d9-af37-4bb2312da778"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an expert research assistant.\n\nWhenever the user asks a question:\n\n1. Search the web before answering.\n2. Read multiple sources.\n3. Produce a concise but informative summary.\n4. Include important facts.\n5. Mention the source URLs.\n6. Send the summary using the Email tool.\n7. After the email is sent, tell the user that the email was sent via n8n Workflow.\n\nAlways use the Email tool for sending mail and Tavily tool for searching web."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "3fd1c47f-b845-4cbc-b3df-b962a8a8e34a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "32c95c25-a9fc-43b7-acf2-987b1a51ea2e",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "Y37hSeDkAmOxCXEx",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        224,
+        208
+      ],
+      "id": "c4d76d37-b222-4953-aca3-ae74c84bb7cc",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "query": "={{ $('When chat message received').item.json.chatInput }}",
+        "options": {
+          "topic": "general",
+          "search_depth": "advanced",
+          "max_results": 5
+        }
+      },
+      "type": "@tavily/n8n-nodes-tavily.tavilyTool",
+      "typeVersion": 1,
+      "position": [
+        368,
+        208
+      ],
+      "id": "45624241-8eb8-4e3f-84e8-684a91f049c3",
+      "name": "Search in Tavily",
+      "credentials": {
+        "tavilyApi": {
+          "id": "Dntnh8Q5T82H4ipu",
+          "name": "Tavily account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "sumiranvitthal@iitbhilai.ac.in",
+        "subject": "={{ $('When chat message received').item .json.chatInput}}",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "534eab5a-6b76-42ec-b706-1e2782191fbc",
+      "name": "Send a message",
+      "webhookId": "0c7f8993-77ed-4226-b46a-862ac87d65c9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZFQQFu1kKMOfs9Z3",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search in Tavily": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "956e1cae-05d5-469f-abef-0351ff5de052",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f00a294b3a2786ce81798fd49527e5dc3262c7b789cd2f0a517806e2faab6649"
+  },
+  "nodeGroups": [],
+  "id": "OJKcXOkWFiYA1kv4",
+  "tags": []
+}
